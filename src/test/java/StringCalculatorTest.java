@@ -47,8 +47,18 @@ public class StringCalculatorTest {
     }
 
     @Test
+    public void testNotEmptyStringReturnsSumNewLineEnd() {
+        Assertions.assertEquals(5, calculator.add("3, 2, \n"));
+    }
+
+    @Test
     public void testNotEmptyStringReturnsSum3NumNewLineEnd() {
-        Assertions.assertEquals(3, calculator.add("3,\n"));
+        Assertions.assertEquals(3, calculator.add("//;\n1;2"));
+    }
+
+    @Test
+    public void testNotEmptyStringReturnsSum5NumNewLineEnd() {
+        Assertions.assertEquals(5, calculator.add("//p\n3p2"));
     }
 
 

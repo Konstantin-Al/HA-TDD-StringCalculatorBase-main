@@ -9,11 +9,12 @@ public class StringCalculatorImpl implements StringCalculator {
             return number;
         }
         catch (NumberFormatException ex){
-            ex.printStackTrace();
+//            ex.printStackTrace();
             return 0;
         }
     }
 
+    
     @Override
     public int add(String input) {
 
@@ -21,10 +22,15 @@ public class StringCalculatorImpl implements StringCalculator {
             return 0;
         }
         else {
-            input = input.replace("\n", ",");
-            String[] splitStr = input.split(",");
-            System.out.println(Arrays.toString(splitStr));
+            char sep = ',';
+            if (input.startsWith("//")){
+                sep = input.charAt(2);
+                input = input.substring(3);
+            }
 
+            input = input.replace('\n', sep);
+
+            String[] splitStr = input.split(String.valueOf(sep));
             int sum_result = 0;
             for (String num_str: splitStr) {
                 sum_result+=get_int_from_str(num_str);
