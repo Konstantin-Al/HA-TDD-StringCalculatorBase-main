@@ -21,7 +21,9 @@ public class StringCalculatorImpl implements StringCalculator {
             return 0;
         }
         else {
+            input = input.replace("\n", ",");
             String[] splitStr = input.split(",");
+            System.out.println(Arrays.toString(splitStr));
 
             int sum_result = 0;
             for (String num_str: splitStr) {
