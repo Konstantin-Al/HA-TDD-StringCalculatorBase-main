@@ -22,12 +22,12 @@ public class StringCalculatorImpl implements StringCalculator {
         }
         else {
             String[] splitStr = input.split(",");
-            if (splitStr.length == 1) {
-                return get_int_from_str(splitStr[0]);
+
+            int sum_result = 0;
+            for (String num_str: splitStr) {
+                sum_result+=get_int_from_str(num_str);
             }
-            else {
-                return get_int_from_str(splitStr[0]) + get_int_from_str(splitStr[1]);
-            }
+            return sum_result;
         }
     }
 }

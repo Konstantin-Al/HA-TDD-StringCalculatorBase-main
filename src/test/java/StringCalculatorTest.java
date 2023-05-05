@@ -36,4 +36,9 @@ public class StringCalculatorTest {
         Assertions.assertEquals(5, calculator.add("2, 3"));
     }
 
+    @Test
+    public void testNotEmptyStringReturnsSum3Nums() {
+        Assertions.assertEquals(9, calculator.add("2, 3, 4"));
+    }
+
 }
