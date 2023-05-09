@@ -3,18 +3,17 @@ import java.util.Arrays;
 public class StringCalculatorImpl implements StringCalculator {
 
 
-    private int get_int_from_str(String num_str) throws NumberFormatException{
+    private int get_int_from_str(String num_str){
+
         try{
             int number = Integer.parseInt(num_str.trim());
             if (number < 0) {
-
                 throw new NumberFormatException("Negatives not allowed");
             }
-
             return number;
         }
         catch (NumberFormatException ex){
-            //ex.printStackTrace();
+            ex.printStackTrace();
             return 0;
         }
     }
@@ -39,13 +38,8 @@ public class StringCalculatorImpl implements StringCalculator {
             int sum_result = 0;
             for (String num_str: splitStr) {
 
-                try{
                 sum_result+=get_int_from_str(num_str);
-                }
-                catch (NumberFormatException ex){
-                ex.printStackTrace();
-                    return 0;
-                }
+
             }
             return sum_result;
         }
