@@ -14,7 +14,7 @@ public class StringCalculatorImpl implements StringCalculator {
             return number;
         }
         catch (NumberFormatException ex){
-//            ex.printStackTrace();
+            //ex.printStackTrace();
             return 0;
         }
     }
@@ -38,7 +38,14 @@ public class StringCalculatorImpl implements StringCalculator {
             String[] splitStr = input.split(String.valueOf(sep));
             int sum_result = 0;
             for (String num_str: splitStr) {
+
+                try{
                 sum_result+=get_int_from_str(num_str);
+                }
+                catch (NumberFormatException ex){
+                ex.printStackTrace();
+                    return 0;
+                }
             }
             return sum_result;
         }

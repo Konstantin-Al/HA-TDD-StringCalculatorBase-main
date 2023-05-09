@@ -63,9 +63,8 @@ public class StringCalculatorTest {
 
     @Test
     public void testNotEmptyStringReturnExc() {
-        Assertions.assertEquals(5, calculator.add("2, -3"));
 
-        String expectedMessage = "Negatives not allowed ";
+        String expectedMessage = "Negatives not allowed";
         Throwable exception = Assertions.assertThrows(NumberFormatException.class, () -> {
             calculator.add("2, -3");
         });
