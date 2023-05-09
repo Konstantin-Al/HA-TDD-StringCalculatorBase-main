@@ -3,9 +3,14 @@ import java.util.Arrays;
 public class StringCalculatorImpl implements StringCalculator {
 
 
-    private int get_int_from_str(String num_str) {
+    private int get_int_from_str(String num_str) throws NumberFormatException{
         try{
             int number = Integer.parseInt(num_str.trim());
+            if (number < 0) {
+
+                throw new NumberFormatException("Negatives not allowed");
+            }
+
             return number;
         }
         catch (NumberFormatException ex){
@@ -14,9 +19,9 @@ public class StringCalculatorImpl implements StringCalculator {
         }
     }
 
-    
+
     @Override
-    public int add(String input) {
+    public int add(String input) throws NumberFormatException {
 
         if (input.length() == 0) {
             return 0;
@@ -38,4 +43,5 @@ public class StringCalculatorImpl implements StringCalculator {
             return sum_result;
         }
     }
+
 }
