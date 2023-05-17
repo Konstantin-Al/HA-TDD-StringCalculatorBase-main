@@ -61,7 +61,7 @@ public class StringCalculatorTest {
         Assertions.assertEquals(5, calculator.add("//p\n3p2"));
     }
 
-    
+
 //    @Test
 //    public void testNotEmptyStringReturnExc() {
 //
