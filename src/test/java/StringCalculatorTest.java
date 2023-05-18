@@ -1,7 +1,16 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 
@@ -12,61 +21,69 @@ public class StringCalculatorTest {
     private StringCalculator calculator;
 
 
+
     @BeforeEach
     public void beforeEach() {
         Logger mockLogger = mock(Logger.class);
         calculator = new StringCalculatorImpl(mockLogger);
 
+
     }
+
+
+
+
+
+
 
     @Test
     public void testEmptyStringReturnsZero() {
-        Assertions.assertEquals(0, calculator.add(""));
+        assertEquals(0, calculator.add(""));
     }
 
     @Test
     public void testNotEmptyStringReturns5() {
-        Assertions.assertEquals(5, calculator.add("5"));
+        assertEquals(5, calculator.add("5"));
     }
 
     @Test
     public void testNotEmptyStringReturns0() {
-        Assertions.assertEquals(0, calculator.add("0"));
+        assertEquals(0, calculator.add("0"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSum5() {
-        Assertions.assertEquals(5, calculator.add("2,3"));
+        assertEquals(5, calculator.add("2,3"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSum5inputSpace() {
-        Assertions.assertEquals(5, calculator.add("2, 3"));
+        assertEquals(5, calculator.add("2, 3"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSum3Nums() {
-        Assertions.assertEquals(9, calculator.add("2, 3, 4"));
+        assertEquals(9, calculator.add("2, 3, 4"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSum3NumNewLine() {
-        Assertions.assertEquals(6, calculator.add("1\n2,3"));
+        assertEquals(6, calculator.add("1\n2,3"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSumNewLineEnd() {
-        Assertions.assertEquals(5, calculator.add("3, 2, \n"));
+        assertEquals(5, calculator.add("3, 2, \n"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSum3NumNewLineEnd() {
-        Assertions.assertEquals(3, calculator.add("//;\n1;2"));
+        assertEquals(3, calculator.add("//;\n1;2"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSum5NumNewLineEnd() {
-        Assertions.assertEquals(5, calculator.add("//p\n3p2"));
+        assertEquals(5, calculator.add("//p\n3p2"));
     }
 
 
@@ -94,8 +111,38 @@ public class StringCalculatorTest {
 
         // Assert
         verify(mockLogger).log(1001);
-
     }
+
+    @Test
+    public void testMainOutputsWelcomeAndHelpText() {
+
+
+        // Arrange
+        String expectedWelcomeText = "Welcome to Calculator!";
+        String expectedHelpText = "Usage: ...";
+
+        // Skapa en inmatningssträng för att simulera användarinmatning
+        String inputString = "\n";
+        InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
+        System.setIn(inputStream);
+
+        // Skapa en ByteArrayOutputStream för att fånga upp utskrift från System.out
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Act
+        MainApp.main();
+
+        // Assert
+        String consoleOutput = outputStream.toString().trim();
+        String[] outputLines = consoleOutput.split(System.lineSeparator());
+
+        assertEquals(expectedWelcomeText, outputLines[0]);
+        assertEquals(expectedHelpText, outputLines[1]);
+    }
+
+
+
 
 
 

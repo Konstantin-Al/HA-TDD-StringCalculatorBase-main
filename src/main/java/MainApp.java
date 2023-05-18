@@ -6,7 +6,9 @@ public class MainApp {
         StringCalculator calculator = new StringCalculatorImpl(logger);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter input: ");
+        System.out.println("Welcome to Calculator!");
+        System.out.println("Usage: ...");
+        System.out.println("Enter input: ");
         String input = scanner.nextLine();
 
         try {
