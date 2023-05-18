@@ -1,6 +1,13 @@
 import java.util.Arrays;
 
+
 public class StringCalculatorImpl implements StringCalculator {
+
+    private Logger logger;
+
+    public StringCalculatorImpl(Logger logger) {
+        this.logger = logger;
+    }
 
 
     private int get_int_from_str(String num_str){
@@ -9,6 +16,9 @@ public class StringCalculatorImpl implements StringCalculator {
             int number = Integer.parseInt(num_str.trim());
             if (number < 0) {
                 throw new NumberFormatException("Negatives not allowed");
+            }
+            else if (number > 1000 && logger != null){
+                logger.log(number);
             }
             return number;
         }

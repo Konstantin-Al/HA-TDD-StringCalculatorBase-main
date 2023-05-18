@@ -2,13 +2,21 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.Mockito.*;
+
+
+
 public class StringCalculatorTest {
+
 
     private StringCalculator calculator;
 
+
     @BeforeEach
     public void beforeEach() {
-        calculator = new StringCalculatorImpl();
+        Logger mockLogger = mock(Logger.class);
+        calculator = new StringCalculatorImpl(mockLogger);
+
     }
 
     @Test
@@ -73,5 +81,22 @@ public class StringCalculatorTest {
 //
 //        Assertions.assertEquals(expectedMessage, exception.getMessage());
 //    }
+
+
+    @Test
+    public void testAddWithLargeNumbersLogsToLogger() {
+        // Arrange
+        Logger mockLogger = mock(Logger.class);
+        StringCalculatorImpl calculator = new StringCalculatorImpl(mockLogger);
+
+        // Act
+        int result = calculator.add("1,2,1001,200");
+
+        // Assert
+        verify(mockLogger).log(1001);
+
+    }
+
+
 
 }
