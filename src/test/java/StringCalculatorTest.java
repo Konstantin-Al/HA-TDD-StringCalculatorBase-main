@@ -1,18 +1,12 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-
 
 
 public class StringCalculatorTest {
@@ -132,13 +126,13 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void testMainOutputResult() {
+    public void testMainOutputResultOneRow() {
 
         // Arrange
         String expectedResult = "Result: 6";
 
         // Skapa en inmatningssträng för att simulera användarinmatning
-        String inputString = "1,2,3";
+        String inputString = "1,2,3\n\n";
         InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(inputStream);
 
@@ -154,6 +148,33 @@ public class StringCalculatorTest {
         String[] outputLines = consoleOutput.split(System.lineSeparator());
 
         assertEquals(expectedResult, outputLines[3]);
+    }
+
+    @Test
+    public void testMainOutputResultsTwoRows() {
+
+        // Arrange
+        String expectedResultFirst = "Result: 6";
+        String expectedResultSecond = "Result: 5";
+
+        // Skapa en inmatningssträng för att simulera användarinmatning
+        String inputString = "1,2,3\n 2,3 \n\n";
+        InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
+        System.setIn(inputStream);
+
+        // Skapa en ByteArrayOutputStream för att fånga upp utskrift från System.out
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Act
+        MainApp.main();
+
+        // Assert
+        String consoleOutput = outputStream.toString().trim();
+        String[] outputLines = consoleOutput.split(System.lineSeparator());
+
+        assertEquals(expectedResultFirst, outputLines[3]);
+        assertEquals(expectedResultSecond, outputLines[5]);
     }
 
 }
