@@ -21,20 +21,11 @@ public class StringCalculatorTest {
     private StringCalculator calculator;
 
 
-
     @BeforeEach
     public void beforeEach() {
         Logger mockLogger = mock(Logger.class);
         calculator = new StringCalculatorImpl(mockLogger);
-
-
     }
-
-
-
-
-
-
 
     @Test
     public void testEmptyStringReturnsZero() {
@@ -116,7 +107,6 @@ public class StringCalculatorTest {
     @Test
     public void testMainOutputsWelcomeAndHelpText() {
 
-
         // Arrange
         String expectedWelcomeText = "Welcome to Calculator!";
         String expectedHelpText = "Usage: ...";
@@ -141,9 +131,29 @@ public class StringCalculatorTest {
         assertEquals(expectedHelpText, outputLines[1]);
     }
 
+    @Test
+    public void testMainOutputResult() {
 
+        // Arrange
+        String expectedResult = "Result: 6";
 
+        // Skapa en inmatningssträng för att simulera användarinmatning
+        String inputString = "1,2,3";
+        InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
+        System.setIn(inputStream);
 
+        // Skapa en ByteArrayOutputStream för att fånga upp utskrift från System.out
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
 
+        // Act
+        MainApp.main();
+
+        // Assert
+        String consoleOutput = outputStream.toString().trim();
+        String[] outputLines = consoleOutput.split(System.lineSeparator());
+
+        assertEquals(expectedResult, outputLines[3]);
+    }
 
 }
