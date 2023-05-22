@@ -63,12 +63,12 @@ public class StringCalculatorTest {
 
     @Test
     public void testNotEmptyStringReturnsSum3NumNewLineEnd() {
-        assertEquals(3, calculator.add("//;\n1;2"));
+        assertEquals(3, calculator.add("//[;]\n1;2"));
     }
 
     @Test
     public void testNotEmptyStringReturnsSum5NumNewLineEnd() {
-        assertEquals(5, calculator.add("//p\n3p2"));
+        assertEquals(5, calculator.add("//[p]\n3p2"));
     }
 
 
@@ -177,4 +177,34 @@ public class StringCalculatorTest {
         assertEquals(expectedResultSecond, outputLines[5]);
     }
 
+    @Test
+    public void testNotEmptyStringReturnsSum7NumNewLineEnd() {
+        assertEquals(7, calculator.add("//[***][%%%]\n1***2%%%4"));
+    }
+
+    @Test
+    public void testMainOutputResultOneRowDelimiters() {
+
+        // Arrange
+        String expectedResult = "Result: 7";
+
+        // Create an input string to simulate user input
+        String inputString = "//[***][%%%]\n1***2%%%4\n\n";
+
+
+        InputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
+        System.setIn(inputStream);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Act
+        MainApp.main();
+
+        // Assert
+        String consoleOutput = outputStream.toString().trim();
+        String[] outputLines = consoleOutput.split(System.lineSeparator());
+
+        assertEquals(expectedResult, outputLines[3]);
+    }
 }
